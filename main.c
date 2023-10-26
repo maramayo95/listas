@@ -67,7 +67,11 @@ void insertarDespuesDelActual( ListaSimp *lista, int valor)
 //     lista->cant++;
 //     lista->actual = nuevoNodo;
 // }
-
+void esListaVacia(struct ListaSimp *lista){
+    if(lista->cant == 0){
+        printf("La lista se encuentra vacía");
+    }
+}
 void mostrarLista(struct ListaSimp *lista)
 {
     struct Nodo *p = lista->com;
