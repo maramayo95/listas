@@ -20,6 +20,10 @@ void inicializarLista(struct ListaSimp *lista)
     lista->cant = 0;
     lista->actual = NULL;
 }
+int esListaVacia(struct ListaSimp *lista)
+{
+    return lista->cant == 0;
+}
 
 void insertarDespuesDelActual(ListaSimp *lista, int valor)
 {
@@ -43,17 +47,24 @@ void insertarDespuesDelActual(ListaSimp *lista, int valor)
 
 void insertarAntesDelActual(struct ListaSimp *lista, int valor)
 {
-    int valorAux = lista->actual->dato;
-    lista->actual->dato = valor;
-    insertarDespuesDelActual(lista, valorAux);
-}
-void esListaVacia(struct ListaSimp *lista)
-{
-    if (lista->cant == 0)
+    if (!esListaVacia(lista))
     {
-        printf("La lista se encuentra vacía");
+        int valorAux = lista->actual->dato;
+        lista->actual->dato = valor;
+        insertarDespuesDelActual(lista, valorAux);
+    } else {
+        insertarDespuesDelActual(lista,valor);
     }
 }
+
+
+// void eliminarElemento(struct ListaSimp *lista)
+// {
+//     if (!esListaVacia(lista))
+//     {
+//         lista->actual
+//     }
+// }
 void mostrarLista(struct ListaSimp *lista)
 {
     struct Nodo *p = lista->com;
