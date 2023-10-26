@@ -62,9 +62,27 @@ void insertarAntesDelActual(struct ListaSimp *lista, int valor)
 // {
 //     if (!esListaVacia(lista))
 //     {
-//         lista->actual
+//        int aux = lista->actual->dato;
+
 //     }
 // }
+
+int buscarDato(struct ListaSimp *lista, int dato){
+    int cantElementos = lista->cant;
+    Nodo * p = lista->com;
+    int i = 1;
+    int existe = 0;
+    while(p != NULL){
+        if (p->dato == dato)
+        {
+          lista->actual = p;
+          existe = 1;
+          break;
+        }
+        p = p->siguiente;
+    }
+    return existe;
+}
 void mostrarLista(struct ListaSimp *lista)
 {
     struct Nodo *p = lista->com;
@@ -98,7 +116,8 @@ int main()
     insertarDespuesDelActual(&lista, 5);
     insertarDespuesDelActual(&lista, 10);
     insertarAntesDelActual(&lista, 4);
+    eliminarElemento(&lista);
     mostrarLista(&lista);
-
+    
     return 0;
 }
