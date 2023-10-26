@@ -42,31 +42,31 @@ void insertarDespuesDelActual( ListaSimp *lista, int valor)
     lista->cant++;
 }
 
-// void insertarAntesDelActual(struct ListaSimp *lista, int valor)
-// {
+void insertarAntesDelActual(struct ListaSimp *lista, int valor)
+{
 
-//     struct Nodo *nuevoNodo = (struct Nodo *)malloc(sizeof(struct Nodo));
+    struct Nodo *nuevoNodo = (struct Nodo *)malloc(sizeof(struct Nodo));
 
-//     nuevoNodo->dato = valor;
-//     nuevoNodo->siguiente = lista->actual;
+    nuevoNodo->dato = valor;
+    nuevoNodo->siguiente = lista->actual;
 
-//     if (lista->com == lista->actual)
-//     {
-//         lista->com = nuevoNodo;
-//     }
-//     else
-//     {
-//         struct Nodo *anterior = lista->com;
-//         while (anterior->siguiente != lista->actual)
-//         {
-//             anterior = anterior->siguiente;
-//         }
-//         anterior->siguiente = nuevoNodo;
-//     }
+    if (lista->com == lista->actual)
+    {
+        lista->com = nuevoNodo;
+    }
+    else
+    {
+        struct Nodo *anterior = lista->com;
+        while (anterior->siguiente != lista->actual)
+        {
+            anterior = anterior->siguiente;
+        }
+        anterior->siguiente = nuevoNodo;
+    }
 
-//     lista->cant++;
-//     lista->actual = nuevoNodo;
-// }
+    lista->cant++;
+    lista->actual = nuevoNodo;
+}
 void esListaVacia(struct ListaSimp *lista){
     if(lista->cant == 0){
         printf("La lista se encuentra vacía");
@@ -104,6 +104,8 @@ int main()
     
    
     insertarDespuesDelActual(&lista,5);
+    insertarDespuesDelActual(&lista,10);
+    insertarAntesDelActual(&lista,4);
     mostrarLista(&lista);
 
     return 0;
