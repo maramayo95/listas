@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Nodo
+typedef struct Nodo
 {
     int dato;
     struct Nodo *siguiente;
-};
+} Nodo;
 
-struct ListaSimp
+typedef struct ListaSimp
 {
-    struct Nodo *com;    
-    int cant;           
+    struct Nodo *com;
+    int cant;
     struct Nodo *actual;
-};
+} ListaSimp;
 
 void inicializarLista(struct ListaSimp *lista)
 {
@@ -21,81 +21,62 @@ void inicializarLista(struct ListaSimp *lista)
     lista->actual = NULL;
 }
 
-void agregarAlPrincipio(struct ListaSimp *lista, int valor)
-{
-    struct Nodo *nuevoNodo = (struct Nodo *)malloc(sizeof(struct Nodo));
-    
 
-    nuevoNodo->dato = valor;
-    nuevoNodo->siguiente = lista->com;
-    lista->com = nuevoNodo;
-    lista->cant++;
-    lista->actual = nuevoNodo; 
-}
-
-void insertarDespuesDelActual(struct ListaSimp *lista, int valor)
+void insertarDespuesDelActual( ListaSimp *lista, int valor)
 {
 
     struct Nodo *nuevoNodo = (struct Nodo *)malloc(sizeof(struct Nodo));
-    if (nuevoNodo == NULL)
-    {
-        perror("Error al asignar memoria para el nodo");
-        exit(1);
-    }
-
+    nuevoNodo->siguiente = NULL;
     nuevoNodo->dato = valor;
-    nuevoNodo->siguiente = lista->actual->siguiente;
-    lista->actual->siguiente = nuevoNodo;
-    lista->cant++;
-    lista->actual = nuevoNodo; 
-}
 
-void insertarAntesDelActual(struct ListaSimp *lista, int valor)
-{
-    if (lista->actual == NULL)
-    {
-        printf("Error: El nodo actual no está definido.\n");
-        return;
-    }
-
-    struct Nodo *nuevoNodo = (struct Nodo *)malloc(sizeof(struct Nodo));
-    if (nuevoNodo == NULL)
-    {
-        perror("Error al asignar memoria para el nodo");
-        exit(1);
-    }
-
-    nuevoNodo->dato = valor;
-    nuevoNodo->siguiente = lista->actual;
-
-    if (lista->com == lista->actual)
+    if (lista->com == NULL)
     {
         lista->com = nuevoNodo;
     }
     else
     {
-        struct Nodo *anterior = lista->com;
-        while (anterior->siguiente != lista->actual)
-        {
-            anterior = anterior->siguiente;
-        }
-        anterior->siguiente = nuevoNodo;
+        nuevoNodo->siguiente = lista->actual->siguiente;
+        lista->actual->siguiente = nuevoNodo;
     }
-
+    lista->actual = nuevoNodo;
     lista->cant++;
-    lista->actual = nuevoNodo; 
 }
+
+// void insertarAntesDelActual(struct ListaSimp *lista, int valor)
+// {
+
+//     struct Nodo *nuevoNodo = (struct Nodo *)malloc(sizeof(struct Nodo));
+
+//     nuevoNodo->dato = valor;
+//     nuevoNodo->siguiente = lista->actual;
+
+//     if (lista->com == lista->actual)
+//     {
+//         lista->com = nuevoNodo;
+//     }
+//     else
+//     {
+//         struct Nodo *anterior = lista->com;
+//         while (anterior->siguiente != lista->actual)
+//         {
+//             anterior = anterior->siguiente;
+//         }
+//         anterior->siguiente = nuevoNodo;
+//     }
+
+//     lista->cant++;
+//     lista->actual = nuevoNodo;
+// }
 
 void mostrarLista(struct ListaSimp *lista)
 {
-    struct Nodo *actual = lista->com;
+    struct Nodo *p = lista->com;
     printf("Lista enlazada simple:\n");
-    while (actual != NULL)
+    while (p != NULL)
     {
-        printf("%d -> ", actual->dato);
-        actual = actual->siguiente;
+        printf("%d -> ", p->dato);
+        p = p->siguiente;
     }
-    printf("NULL\n");
 }
 
 void liberarLista(struct ListaSimp *lista)
@@ -114,21 +95,12 @@ void liberarLista(struct ListaSimp *lista)
 
 int main()
 {
-    struct ListaSimp lista; 
+    struct ListaSimp lista;
     inicializarLista(&lista);
-
-    agregarAlPrincipio(&lista, 5);
-    agregarAlPrincipio(&lista, 10);
-
-    lista.actual = lista.com;
-
-    insertarDespuesDelActual(&lista, 7);
-
-    insertarAntesDelActual(&lista, 15);
-
+    
+   
+    insertarDespuesDelActual(&lista,5);
     mostrarLista(&lista);
-
-    liberarLista(&lista);
 
     return 0;
 }
